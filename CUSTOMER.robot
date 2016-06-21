@@ -69,7 +69,6 @@ Individual Customer
     Check T24 Record    CUSTOMER,INPUT    ${IndivCustomer}    ${validationRules}
 
 Corporate Customer
-    T24 Login    INPUTTER
     @{testDataFields}=    Create List    NAME.1:1=?AUTO-VALUE    SHORT.NAME:1=?AUTO-VALUE    MNEMONIC=?AUTO-VALUE    ACCOUNT.OFFICER=${g_acct_officer_teller}    STREET:1=LAKESHORE STREET
     ...    NATIONALITY=${g_country_us}    RESIDENCE=${g_country_us}    LANGUAGE=${g_language_eng}    SECTOR=${g_sector_corporate}
     Create Or Amend T24 Record    CUSTOMER,CORP    >> CorpCust    ${testDataFields}    Accept All    ${EMPTY}
@@ -78,7 +77,6 @@ Corporate Customer
     Check T24 Record    CUSTOMER,CORP    ${CorpCust}    ${validationRules}
 
 Add print addr to corp cust
-    T24 Login    INPUTTER
     @{testDataFields}=    Create List    NAME.1:1=?AUTO-VALUE    SHORT.NAME:1=?AUTO-VALUE    MNEMONIC=?AUTO-VALUE    ACCOUNT.OFFICER=${g_acct_officer_teller}    STREET:1=LAKESHORE STREET
     ...    NATIONALITY=${g_country_us}    RESIDENCE=${g_country_us}    LANGUAGE=${g_language_eng}    SECTOR=${g_sector_corporate}    TOWN.COUNTRY:1=NEW YORK    POST.CODE:1=56789
     ...    COUNTRY:1=${g_country_us}    PHONE.1:1=2876483    EMAIL.1:1=MAIL@MAIL.COM
