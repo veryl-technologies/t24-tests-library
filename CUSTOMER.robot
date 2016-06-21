@@ -1,8 +1,8 @@
 *** Settings ***
-Documentation     Test suite that demonstrates the main functionalities of I,A,S,ENQ commandsfiel
+Documentation     CUSTOMER test cases
 Test Teardown     Close Browsers
 Library           T24WebDriver.py
-Library           Selenium2Library    run_on_failure=Nothing
+Library           Selenium2Library
 
 *** Test Cases ***
 Prerequisites

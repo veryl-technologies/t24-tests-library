@@ -1,7 +1,6 @@
 *** Settings ***
 Library           T24WebDriver.py
 Library           Selenium2Library
-Library           Selenium2Library    run_on_failure=Nothing
 
 *** Test Cases ***
 Today's date
