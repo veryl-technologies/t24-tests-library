@@ -63,7 +63,7 @@ Individual Customer
     @{testDataFields}=    Create List    TITLE=MR    GENDER=MALE    ACCOUNT.OFFICER=${g_acct_officer_impl}    CUSTOMER.STATUS=${g_cust_status_private_std}    FAMILY.NAME=?AUTO-VALUE
     ...    GIVEN.NAMES=?AUTO-VALUE    INDUSTRY=${g_industry_private_person}    LANGUAGE=${g_language_eng}    NAME.1:1=?AUTO-VALUE    SHORT.NAME:1=?AUTO-VALUE    MNEMONIC=?AUTO-VALUE
     ...    SECTOR=${g_sector_indiv}    TARGET=${g_target_private_std}    RESIDENCE=${g_country_us}    MARITAL.STATUS=?SELECT-FIRST
-    Create Or Amend T24 Record    CUSTOMER,INPUT    >> IndivCustomer    ${testDataFields}    Accept All    ${EMPTY}
+    Create Or Amend T24 Record    CUSTOMER,INPUT    >> IndivCustomer    ${testDataFields}    ${EMPTY}    ${EMPTY}
     Authorize T24 Record    CUSTOMER    ${IndivCustomer}
     @{validationRules}=    Create List    SECTOR :EQ:= ${g_sector_indiv}
     Check T24 Record    CUSTOMER,INPUT    ${IndivCustomer}    ${validationRules}
