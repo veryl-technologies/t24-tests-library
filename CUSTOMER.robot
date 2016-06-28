@@ -20,6 +20,8 @@ Prerequisites
     Check T24 Record    DEPT.ACCT.OFFICER    1    ${validationRules}    # Account officer is Implementation - used in CUSTOMER,INPUT
     @{validationRules}=    Create List    @ID >> g_acct_officer_teller
     Check T24 Record    DEPT.ACCT.OFFICER    31    ${validationRules}    # Account officer is Teller - used in CUSTOMER,CORP
+    @{validationRules}=    Create List    @ID >> g_acct_officer_branch_mng
+    Check T24 Record    DEPT.ACCT.OFFICER    27    ${validationRules}    # Account officer is Branch Operations Manager - used in CUSTOMER,CORP
     @{validationRules}=    Create List    @ID >> g_sector_corporate
     Check T24 Record    SECTOR    2001    ${validationRules}    # Corporate sector - used in CUSTOMER,CORP
     @{validationRules}=    Create List    @ID >> g_sector_centralbank
