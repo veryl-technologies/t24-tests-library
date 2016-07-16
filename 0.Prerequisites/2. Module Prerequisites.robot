@@ -23,3 +23,21 @@ Library           Selenium2Library
     @{testDataFields}=    Create List    CUSTOMER=${m_teller_corp_cust}    CURRENCY=USD
     Create Or Amend T24 Record    ACCOUNT,SB.LCY    >>m_teller_savings_acc_lcy    ${testDataFields}    Accept All    ${EMPTY}
     Authorize T24 Record    ACCOUNT    ${m_teller_savings_acc_lcy}
+    @{testDataFields}=    Create List    AMOUNT.LOCAL.1:1=100.23    ACCOUNT.2=${m_teller_savings_acc_lcy}    NARRATIVE.2:1=Deposit cash    DR.UNIT:1=1
+    Create Or Amend T24 Record    TELLER,LCY.CASHIN    >>CashDepLCY    ${testDataFields}    Accept All    ${EMPTY}
+    Authorize T24 Record    TELLER,LCY.CASHIN    ${CashDepLCY}
+    @{testDataFields}=    Create List    CUSTOMER=${m_teller_corp_cust}    CURRENCY=GBP
+    Create Or Amend T24 Record    ACCOUNT,SB.FCY    >>m_teller_savings_acc_fcy    ${testDataFields}    Accept All    \    # Create Savings Account, Category 6001
+    Authorize T24 Record    ACCOUNT    ${m_teller_savings_acc_fcy}
+    @{testDataFields}=    Create List    CURRENCY.1=GBP    AMOUNT.FCY.1:1=10.23    ACCOUNT.2=${m_teller_savings_acc_fcy}    NARRATIVE.2:1=Initial Deposit    DR.UNIT:3=1
+    ...    DR.UNIT:9=2    DR.UNIT:11=3
+    Create Or Amend T24 Record    TELLER,FCY.CASHIN    >>CashDepFCY    ${testDataFields}    \    ${EMPTY}
+    Authorize T24 Record    TELLER,FCY.CASHIN    ${CashDepFCY}
+    @{validationRules}=    Create List    SELL.RATE >> m_teller_curr_GBP
+    Check T24 Record    CURRENCY    GBP    ${validationRules}
+
+TEST - sell rate
+    @{validationRules}=    Create List    SELL.RATE >> my_sell_rate
+    Check T24 Record    CURRENCY    GBP    ${validationRules}
+    @{validationRules}=    Create List    SELL.RATE :EQ:= ${my_sell_rate}
+    Check T24 Record    CURRENCY    GBP    ${validationRules}
