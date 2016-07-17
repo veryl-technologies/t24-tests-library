@@ -52,3 +52,6 @@ Outward Remittance - OT103
     ...    CREDIT.ACCT.NO=${m_ft_acct_nostro}
     Create Or Amend T24 Record    FUNDS.TRANSFER,OT103.SERIAL.FTHP    >>ft    ${testDataFields}    \    ${EMPTY}
     Authorize T24 Record    FUNDS.TRANSFER    ${ft}
+    @{enquiryConstraints}=    Create List    TRANSACTION.REF :EQ:= FT14112TJCDP    Message type :EQ:= 103
+    @{validationRules}=    Create List
+    Execute T24 Enquiry    %DE.O.HEADER    ${enquiryConstraints}    1    ${validationRules}

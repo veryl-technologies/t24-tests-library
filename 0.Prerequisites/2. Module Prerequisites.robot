@@ -1,6 +1,5 @@
 *** Settings ***
-Suite Teardown    Close Browsers
-Library           T24WebDriver.py
+Library           T24WebDriver.py    #Suite Teardown    Close Browsers
 Library           Selenium2Library
 
 *** Test Cases ***
@@ -33,8 +32,6 @@ Library           Selenium2Library
     ...    DR.UNIT:11=3
     Create Or Amend T24 Record    TELLER,FCY.CASHIN    >>CashDepFCY    ${testDataFields}    \    ${EMPTY}
     Authorize T24 Record    TELLER,FCY.CASHIN    ${CashDepFCY}
-    @{validationRules}=    Create List    SELL.RATE >> m_teller_curr_GBP
-    Check T24 Record    CURRENCY    GBP    ${validationRules}
 
 4. FUNDS TRANSFER
     @{testDataFields}=    Create List    NAME.1:1=?AUTO-VALUE    SHORT.NAME:1=?AUTO-VALUE    MNEMONIC=?AUTO-VALUE    ACCOUNT.OFFICER=${g_acct_officer_teller}    CUSTOMER.STATUS=${g_cust_status_large_fin}

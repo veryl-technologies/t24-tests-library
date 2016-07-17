@@ -1,7 +1,6 @@
 *** Settings ***
 Documentation     CUSTOMER test cases
-Test Teardown     Close Browsers
-Library           T24WebDriver.py
+Library           T24WebDriver.py    #Test Teardown    Close Browsers
 Library           Selenium2Library
 
 *** Test Cases ***
