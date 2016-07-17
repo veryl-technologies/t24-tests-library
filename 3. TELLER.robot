@@ -30,3 +30,5 @@ Cash Deposit - Local - Foreign
     @{testDataFields}=    Create List    AMOUNT.LOCAL.1:1=10.00    CURRENCY.2=GBP    ACCOUNT.2=${m_teller_savings_acc_fcy}    NARRATIVE.2:1=Deposit USD into GBP account    DR.UNIT:4=1
     Create Or Amend T24 Record    TELLER,LCY.CASHIN.FCY.ACCT    >>CashDepLcyFcy    ${testDataFields}    \    ${EMPTY}
     Authorize T24 Record    TELLER,LCY.CASHIN.FCY.ACCT    ${CashDepLcyFcy}
+    @{validationRules}=    Create List    WORKING.BALANCE :EQ:= ? round (${w.balance} / ${SREUR}, 2)
+    Check T24 Record    ACCOUNT    ${m_teller_savings_acc_fcy}    ${validationRules}
