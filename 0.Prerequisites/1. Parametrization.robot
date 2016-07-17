@@ -110,3 +110,7 @@ TARGET for Other Institutions
 TARGET for Corporate Entities
     @{validationRules}=    Create List    @ID >> g_target_corp_entity
     Check T24 Record    TARGET    7    ${validationRules}    # Get target for corporate entity - used in CU,CORP for financial institutions
+
+Currency GBP
+    @{validationRules}=    Create List    SELL.RATE >> g_curr_GBP
+    Check T24 Record    CURRENCY    GBP    ${validationRules}
