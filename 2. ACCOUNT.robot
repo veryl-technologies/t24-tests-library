@@ -1,6 +1,5 @@
 *** Settings ***
-Test Teardown     Close Browsers
-Library           T24WebDriver.py
+Library           T24WebDriver.py    #Test Teardown    Close Browsers
 Library           Selenium2Library
 
 *** Test Cases ***
@@ -38,13 +37,6 @@ Vostro Account
     Authorize T24 Record    ACCOUNT    ${AcctVostro}
     @{validationRules}=    Create List    CATEGORY :EQ:= 2-001    CURRENCY :EQ:= USD
     Check T24 Record    ACCOUNT,VOSTRO    ${AcctVostro}    ${validationRules}
-
-Internal Account - Manager Checks
-    @{testDataFields}=    Create List    ACCOUNT.TITLE.2=?AUTO-VALUE
-    Create Or Amend T24 Record    ACCOUNT,INT.AC1    USD${g_categ_int_ac_mng_chq}0001    ${testDataFields}    Accept All    ${EMPTY}
-    Authorize T24 Record    ACCOUNT    USD${g_categ_int_ac_mng_chq}0001
-    @{validationRules}=    Create List    CATEGORY :EQ:= 15-005    CURRENCY :EQ:= USD
-    Check T24 Record    ACCOUNT,INT.AC1    USD${g_categ_int_ac_mng_chq}0001    ${validationRules}
 
 ACCOUNT CLOSURE
     @{testDataFields}=    Create List    CUSTOMER=${m_ac_corp_cust}    CURRENCY=USD
