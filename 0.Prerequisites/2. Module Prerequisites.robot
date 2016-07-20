@@ -28,7 +28,7 @@ Library           Selenium2Library
     @{testDataFields}=    Create List    CUSTOMER=${m_teller_corp_cust}    CURRENCY=GBP
     Create Or Amend T24 Record    ACCOUNT,SB.FCY    >>m_teller_savings_acc_fcy    ${testDataFields}    Accept All    \    # Create Savings Account, Category 6001
     Authorize T24 Record    ACCOUNT    ${m_teller_savings_acc_fcy}
-    @{testDataFields}=    Create List    CURRENCY.1=GBP    AMOUNT.FCY.1:1=1000.03    ACCOUNT.2=${m_teller_savings_acc_fcy}    NARRATIVE.2:1=Initial Deposit    DR.UNIT:3=20
+    @{testDataFields}=    Create List    CURRENCY.1=GBP    AMOUNT.FCY.1:1=1000.03    ACCOUNT.2=${m_teller_savings_acc_fcy}    NARRATIVE.2:1=Initial Deposit    DR.UNIT:1=20
     ...    DR.UNIT:11=3
     Create Or Amend T24 Record    TELLER,FCY.CASHIN    >>CashDepFCY    ${testDataFields}    \    ${EMPTY}
     Authorize T24 Record    TELLER,FCY.CASHIN    ${CashDepFCY}
@@ -55,7 +55,7 @@ Library           Selenium2Library
     @{testDataFields}=    Create List    CUSTOMER=${m_ft_corp_cust}    CURRENCY=USD
     Create Or Amend T24 Record    ACCOUNT,SB.LCY    >>m_ft_savings_acc_lcy2    ${testDataFields}    \    ${EMPTY}
     Authorize T24 Record    ACCOUNT    ${m_ft_savings_acc_lcy2}
-    @{testDataFields}=    Create List    AMOUNT.LOCAL.1:1=100.03    ACCOUNT.2=${m_ft_savings_acc_lcy2}    NARRATIVE.2:1=Deposit cash    DR.UNIT:1=1    DR.UNIT:12=3
+    @{testDataFields}=    Create List    AMOUNT.LOCAL.1:1=1000.03    ACCOUNT.2=${m_ft_savings_acc_lcy2}    NARRATIVE.2:1=Deposit cash    DR.UNIT:1=10    DR.UNIT:12=3
     Create Or Amend T24 Record    TELLER,LCY.CASHIN    >>CashDepLCY    ${testDataFields}    \    ${EMPTY}
     Authorize T24 Record    TELLER,LCY.CASHIN    ${CashDepLCY}
     @{testDataFields}=    Create List    CUSTOMER=${m_ft_corp_cust}    CURRENCY=GBP
