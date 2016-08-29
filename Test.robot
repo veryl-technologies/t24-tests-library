@@ -21,3 +21,36 @@ Internal Account - Manager Checks
     Authorize T24 Record    ACCOUNT    USD${g_categ_int_ac_mng_chq}0001
     @{validationRules}=    Create List    CATEGORY :EQ:= 15-005    CURRENCY :EQ:= USD
     Check T24 Record    ACCOUNT,INT.AC1    USD${g_categ_int_ac_mng_chq}0001    ${validationRules}
+
+Menu+COS1
+    Execute T24 Menu Command    Unauthorised Customer
+    @{enquiryConstraints}=    Create List    Customer No :EQ:= 100226
+    @{validationRules}=    Create List
+    Execute T24 Enquiry    CUSTOMER.NAU.AMEND    ${enquiryConstraints}    Edit    ${validationRules}
+    @{testDataFields}=    Create List    MNEMONIC=COOPERA1
+    Create Or Amend T24 Record    CUSTOMER,INPUT    \    ${testDataFields}    Accept All    ${EMPTY}
+
+Menu+COS2
+    Execute T24 Menu Command    Home Page - Customer Service Agent
+    Execute T24 Menu Command    Create SME Customer
+    @{testDataFields}=    Create List    ACCOUNT.OFFICER=4    NATIONALITY=BG
+    Create Or Amend T24 Record    CUSTOMER,SME    \    ${testDataFields}    \    ${EMPTY}
+
+tab
+    Execute T24 Menu Command    Home Page - Customer Service Agent
+    Execute T24 Tab Command    Till Admin > Exchange Rates
+    @{enquiryConstraints}=    Create List    Ccy :EQ:= AUD
+    @{validationRules}=    Create List
+    Execute T24 Enquiry    CURRENCY.RATES    ${enquiryConstraints}    View    ${validationRules}
+    @{validationRules}=    Create List    SELL.RATE >> m_bsb
+    Check T24 Record    CURRENCY,EXCH.RATES    \    ${validationRules}
+
+Amend Beneficiary using COS
+    Execute T24 Menu Command    Home Page - Payments
+    Execute T24 Menu Command    Funds Transfers > Beneficiary Details
+    Execute T24 Tab Command    Beneficiary List
+    @{enquiryConstraints}=    Create List    Transaction Ref :EQ:= BEN1409314000
+    @{validationRules}=    Create List
+    Execute T24 Enquiry    BENEFICIARY.LIST    ${enquiryConstraints}    Amend    ${validationRules}
+    @{testDataFields}=    Create List    HINT.TEXT=?AUTO-VALUE
+    Create Or Amend T24 Record    BENEFICIARY,CREATE    \    ${testDataFields}    Accept All    Fail
