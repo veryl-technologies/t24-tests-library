@@ -5,6 +5,7 @@ Library           Selenium2Library
 
 *** Test Cases ***
 Fixed Term 6M - Bond
+    T24 Login    INPUTTER
     Execute T24 Menu Command    Product Catalog
     @{enquiryConstraints}=    Create List    Category :EQ:= Deposits    Group :EQ:= Bonds
     @{validationRules}=    Create List

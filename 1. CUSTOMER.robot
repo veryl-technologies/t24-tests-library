@@ -5,6 +5,7 @@ Library           Selenium2Library
 
 *** Test Cases ***
 Individual Customer
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    TITLE=MR    GENDER=MALE    ACCOUNT.OFFICER=${g_acct_officer_impl}    CUSTOMER.STATUS=${g_cust_status_private_std}    FAMILY.NAME=?AUTO-VALUE
     ...    GIVEN.NAMES=?AUTO-VALUE    INDUSTRY=${g_industry_private_person}    LANGUAGE=${g_language_eng}    NAME.1:1=?AUTO-VALUE    SHORT.NAME:1=?AUTO-VALUE    MNEMONIC=?AUTO-VALUE
     ...    SECTOR=${g_sector_indiv}    TARGET=${g_target_private_std}    RESIDENCE=${g_country_us}    MARITAL.STATUS=?SELECT-FIRST
@@ -14,6 +15,7 @@ Individual Customer
     Check T24 Record    CUSTOMER,INPUT    ${IndivCustomer}    ${validationRules}
 
 Corporate Customer
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    NAME.1:1=?AUTO-VALUE    SHORT.NAME:1=?AUTO-VALUE    MNEMONIC=?AUTO-VALUE    ACCOUNT.OFFICER=${g_acct_officer_teller}    STREET:1=LAKESHORE STREET
     ...    NATIONALITY=${g_country_us}    RESIDENCE=${g_country_us}    LANGUAGE=${g_language_eng}    SECTOR=${g_sector_corporate}
     Create Or Amend T24 Record    CUSTOMER,CORP    >> CorpCust    ${testDataFields}    Accept All    ${EMPTY}
@@ -22,11 +24,13 @@ Corporate Customer
     Check T24 Record    CUSTOMER,CORP    ${CorpCust}    ${validationRules}
 
 Add print addr to corp cust
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    NAME.1:1=?AUTO-VALUE    SHORT.NAME:1=?AUTO-VALUE    MNEMONIC=?AUTO-VALUE    ACCOUNT.OFFICER=${g_acct_officer_teller}    STREET:1=LAKESHORE STREET
     ...    NATIONALITY=${g_country_us}    RESIDENCE=${g_country_us}    LANGUAGE=${g_language_eng}    SECTOR=${g_sector_corporate}    TOWN.COUNTRY:1=NEW YORK    POST.CODE:1=56789
     ...    COUNTRY:1=${g_country_us}    PHONE.1:1=2876483    EMAIL.1:1=MAIL@MAIL.COM
     Create Or Amend T24 Record    CUSTOMER,CORP    >> CorpCust    ${testDataFields}    Accept All    ${EMPTY}    # Create a corporate customer
     Authorize T24 Record    CUSTOMER    ${CorpCust}    # Authorize the customer
+    T24 Login    INPUTTER
     @{validationRules}=    Create List    SECTOR :EQ:= ${g_sector_corporate}    NAME.1 >> c_name1    SHORT.NAME >> c_short_name    STREET >> c_street    TOWN.COUNTRY >> c_town
     ...    POST.CODE >> c_post_code    COUNTRY >> c_country    EMAIL.1 >> c_email    PHONE.1 >> c_phone
     Check T24 Record    CUSTOMER,CORP    ${CorpCust}    ${validationRules}
@@ -38,16 +42,19 @@ Add print addr to corp cust
     Create Or Amend T24 Record    DE.ADDRESS,ADD2    ${g_local_country}0010001.C-${CorpCust}.PRINT.2    ${testDataFields}    Accept All    ${EMPTY}
 
 Amend a corporate customer - change name
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    NAME.1:1=?AUTO-VALUE    SHORT.NAME:1=?AUTO-VALUE    MNEMONIC=?AUTO-VALUE    ACCOUNT.OFFICER=${g_acct_officer_teller}    STREET:1=LAKESHORE STREET
     ...    NATIONALITY=${g_country_us}    RESIDENCE=${g_country_us}    LANGUAGE=${g_language_eng}    SECTOR=${g_sector_corporate}    TOWN.COUNTRY:1=NEW YORK    POST.CODE:1=56789
     ...    COUNTRY:1=${g_country_us}    PHONE.1:1=2876483    EMAIL.1:1=MAIL@MAIL.COM
     Create Or Amend T24 Record    CUSTOMER,CORP    >>CorpCust2    ${testDataFields}    Accept All    \    # Create a new corporate customer
     Authorize T24 Record    CUSTOMER    ${CorpCust2}
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    NAME.1:1=?AUTO-VALUE
     Create Or Amend T24 Record    CUSTOMER,CORP    ${CorpCust2}    ${testDataFields}    Accept All    ${EMPTY}    # Change the value in the field NAME.1
     Authorize T24 Record    CUSTOMER    ${CorpCust2}
 
 Corporate Customer - Local Bank
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    NAME.1:1=?AUTO-VALUE    SHORT.NAME:1=?AUTO-VALUE    MNEMONIC=?AUTO-VALUE    ACCOUNT.OFFICER=${g_acct_officer_teller}    CUSTOMER.STATUS=${g_cust_status_large_fin}
     ...    INDUSTRY=${g_industry_banks}    STREET:1=LAKESHORE STREET    NATIONALITY=${g_country_us}    RESIDENCE=${g_country_us}    LANGUAGE=${g_language_eng}    TARGET=${g_target_banks}
     ...    SECTOR=${g_sector_localbank}
@@ -57,6 +64,7 @@ Corporate Customer - Local Bank
     Check T24 Record    CUSTOMER,CORP    ${CorpCust3}    ${validationRules}    # Verify that the sector is 3001 - \ Local Bank
 
 Corporate Customer - Central Bank
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    NAME.1:1=?AUTO-VALUE    SHORT.NAME:1=?AUTO-VALUE    MNEMONIC=?AUTO-VALUE    ACCOUNT.OFFICER=${g_acct_officer_branch_mng}    CUSTOMER.STATUS=${g_cust_status_gvrn}
     ...    INDUSTRY=${g_industry_banks}    STREET:1=LAKESHORE STREET    NATIONALITY=${g_country_us}    RESIDENCE=${g_country_us}    LANGUAGE=${g_language_eng}    TARGET=${g_target_other}
     ...    SECTOR=${g_sector_centralbank}
@@ -66,6 +74,7 @@ Corporate Customer - Central Bank
     Check T24 Record    CUSTOMER,CORP    ${CorpCust4}    ${validationRules}    # Verify that the sector is 3002 - \ Central Bank
 
 Corporate Customer - Bank Branch
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    NAME.1:1=?AUTO-VALUE    SHORT.NAME:1=?AUTO-VALUE    MNEMONIC=?AUTO-VALUE    ACCOUNT.OFFICER=${g_acct_officer_branch_mng}    CUSTOMER.STATUS=${g_cust_status_corp_medium}
     ...    INDUSTRY=${g_industry_banks}    STREET:1=LAKESHORE STREET    NATIONALITY=${g_country_us}    RESIDENCE=${g_country_us}    LANGUAGE=${g_language_eng}    TARGET=${g_target_banks}
     ...    SECTOR=${g_sector_bankbranch}
@@ -75,6 +84,7 @@ Corporate Customer - Bank Branch
     Check T24 Record    CUSTOMER,CORP    ${CorpCust5}    ${validationRules}    # Verify that the sector is 3005 - \ Bank Branch
 
 Corporate Customer - Financial Corporation
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    NAME.1:1=?AUTO-VALUE    SHORT.NAME:1=?AUTO-VALUE    MNEMONIC=?AUTO-VALUE    ACCOUNT.OFFICER=${g_acct_officer_teller}    CUSTOMER.STATUS=${g_cust_status_fin_medium}
     ...    INDUSTRY=${g_industry_other_fin}    STREET:1=LAKESHORE STREET    NATIONALITY=${g_country_us}    RESIDENCE=${g_country_us}    LANGUAGE=${g_language_eng}    TARGET=${g_target_corp_entity}
     ...    SECTOR=${g_sector_financialcorp}
@@ -84,6 +94,7 @@ Corporate Customer - Financial Corporation
     Check T24 Record    CUSTOMER,CORP    ${CorpCust6}    ${validationRules}
 
 KYC
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    RELATIONSHIP.NAME=Technology Products    REL.MANAGER=1    FURTHER.MANAGERS:1=31    RELATIONSHIP.UPDATE:1=PERIODIC.UPDATE    REL.START.DATE=${g_today}
     Create Or Amend T24 Record    CR.RELATIONSHIP,KYC.INPUT    >>KYCTechProd    ${testDataFields}    Accept All    ${EMPTY}
     @{validationRules}=    Create List
@@ -92,5 +103,6 @@ KYC
     ...    NATIONALITY=${g_country_us}    RESIDENCE=${g_country_us}    LANGUAGE=${g_language_eng}    CUSTOMER.TYPE=ACTIVE    SECTOR=${g_sector_corporate}
     Create Or Amend T24 Record    CUSTOMER,CORP    >>CorpCust7    ${testDataFields}    Accept All    ${EMPTY}
     Authorize T24 Record    CUSTOMER    ${CorpCust7}
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    CONTACT.DATE=14 APR 2011    INTRODUCER=COLLEAGUE    KYC.RELATIONSHIP=${KYCTechProd}
     Create Or Amend T24 Record    CUSTOMER,KYC.INPUT    ${CorpCust7}    ${testDataFields}    \    ${EMPTY}

@@ -5,6 +5,7 @@ Library           Selenium2Library
 
 *** Test Cases ***
 Cash Deposit - Local
+    T24 Login    INPUTTER
     @{validationRules}=    Create List    WORKING.BALANCE >> w_balance
     Check T24 Record    ACCOUNT    ${m_teller_savings_acc_lcy}    ${validationRules}
     @{testDataFields}=    Create List    AMOUNT.LOCAL.1:1=66.5    ACCOUNT.2=${m_teller_savings_acc_lcy}    NARRATIVE.2:1=Deposit cash    DR.UNIT:2=1    DR.UNIT:4=1
@@ -15,6 +16,7 @@ Cash Deposit - Local
     Check T24 Record    ACCOUNT    ${m_teller_savings_acc_lcy}    ${validationRules}
 
 Cash Deposit - Foreign
+    T24 Login    INPUTTER
     @{validationRules}=    Create List    WORKING.BALANCE >> w_balance
     Check T24 Record    ACCOUNT    ${m_teller_savings_acc_fcy}    ${validationRules}
     @{testDataFields}=    Create List    CURRENCY.1=GBP    AMOUNT.FCY.1:1=10.35    ACCOUNT.2=${m_teller_savings_acc_fcy}    NARRATIVE.2:1=Additional Deposit    DR.UNIT:3=1
@@ -25,6 +27,7 @@ Cash Deposit - Foreign
     Check T24 Record    ACCOUNT    ${m_teller_savings_acc_fcy}    ${validationRules}
 
 Cash Deposit - Local - Foreign
+    T24 Login    INPUTTER
     @{validationRules}=    Create List    WORKING.BALANCE >> w_balance
     Check T24 Record    ACCOUNT    ${m_teller_savings_acc_fcy}    ${validationRules}
     @{testDataFields}=    Create List    AMOUNT.LOCAL.1:1=10.00    CURRENCY.2=GBP    ACCOUNT.2=${m_teller_savings_acc_fcy}    NARRATIVE.2:1=Deposit USD into GBP account    DR.UNIT:4=1
@@ -34,6 +37,7 @@ Cash Deposit - Local - Foreign
     Check T24 Record    ACCOUNT    ${m_teller_savings_acc_fcy}    ${validationRules}
 
 Sell Foreign Currency Against Local Currency
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    CURRENCY.1=GBP    AMOUNT.FCY.1:1=100    NARRATIVE.1:1:1=EXCHANGE CASH    CHRG.AMT.LOCAL:1=0.17    UNIT:1=2
     ...    DR.UNIT:1=1    DR.UNIT:2=1    DR.UNIT:4=1    DR.UNIT:5=1    DR.UNIT:6=1    DR.UNIT:7=1
     ...    DR.UNIT:9=1    DR.UNIT:12=4

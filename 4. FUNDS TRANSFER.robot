@@ -5,6 +5,7 @@ Library           Selenium2Library
 
 *** Test Cases ***
 Account Transfer - LCY to LCY
+    T24 Login    INPUTTER
     @{validationRules}=    Create List    WORKING.BALANCE >> w_balance
     Check T24 Record    ACCOUNT    ${m_ft_savings_acc_lcy}    ${validationRules}    # Check the account balance before the transaction
     @{validationRules}=    Create List    WORKING.BALANCE >> w_balance2
@@ -18,6 +19,7 @@ Account Transfer - LCY to LCY
     Check T24 Record    ACCOUNT    ${m_ft_savings_acc_lcy2}    ${validationRules}
 
 Account Transfer - LCY to FCY
+    T24 Login    INPUTTER
     @{validationRules}=    Create List    WORKING.BALANCE >> w_balance_lcy
     Check T24 Record    ACCOUNT    ${m_ft_savings_acc_lcy}    ${validationRules}
     @{validationRules}=    Create List    WORKING.BALANCE >> w_balance_fcy
@@ -31,6 +33,7 @@ Account Transfer - LCY to FCY
     Check T24 Record    ACCOUNT    ${m_ft_savings_acc_fcy}    ${validationRules}
 
 Account Transfer - FCY to LCY
+    T24 Login    INPUTTER
     @{validationRules}=    Create List    WORKING.BALANCE >> w_balance_lcy
     Check T24 Record    ACCOUNT    ${m_ft_savings_acc_lcy}    ${validationRules}
     @{validationRules}=    Create List    WORKING.BALANCE >> w_balance_fcy
@@ -44,12 +47,14 @@ Account Transfer - FCY to LCY
     Check T24 Record    ACCOUNT    ${m_ft_savings_acc_fcy}    ${validationRules}
 
 Outward Remittance - OT102
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    DEBIT.ACCT.NO=${m_ft_savings_acc_lcy}    DEBIT.CURRENCY=USD    DEBIT.AMOUNT=10.05    BEN.CUSTOMER:1=Customer X    CREDIT.CURRENCY=USD
     ...    CREDIT.ACCT.NO=${m_ft_acct_nostro}
     Create Or Amend T24 Record    FUNDS.TRANSFER,OT102    >>ft    ${testDataFields}    Accept All    ${EMPTY}
     Authorize T24 Record    FUNDS.TRANSFER    ${ft}
 
 Outward Remittance - OT103
+    T24 Login    INPUTTER
     @{testDataFields}=    Create List    DEBIT.ACCT.NO=${m_ft_savings_acc_lcy}    DEBIT.CURRENCY=USD    DEBIT.AMOUNT=10.05    BEN.CUSTOMER:1=Customer X    CREDIT.CURRENCY=USD
     ...    CREDIT.ACCT.NO=${m_ft_acct_nostro}
     Create Or Amend T24 Record    FUNDS.TRANSFER,OT103.SERIAL.FTHP    >>ft    ${testDataFields}    Accept All    ${EMPTY}
