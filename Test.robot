@@ -54,3 +54,9 @@ Amend Beneficiary using COS
     Execute T24 Enquiry    BENEFICIARY.LIST    ${enquiryConstraints}    Amend    ${validationRules}
     @{testDataFields}=    Create List    HINT.TEXT=?AUTO-VALUE
     Create Or Amend T24 Record    BENEFICIARY,CREATE    \    ${testDataFields}    Accept All    Fail
+
+Validate
+    @{testDataFields}=    Create List
+    Validate T24 Record    ACCOUNT    \    ${testDataFields}    \    Expect Any Error
+    @{testDataFields}=    Create List
+    Validate T24 Record    ACCOUNT    \    ${testDataFields}    \    Expect Error Containing:CURRENCY
