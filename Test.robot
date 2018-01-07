@@ -59,4 +59,4 @@ Validate
     @{testDataFields}=    Create List
     Validate T24 Record    ACCOUNT    \    ${testDataFields}    \    Expect Any Error
     @{testDataFields}=    Create List
-    Validate T24 Record    ACCOUNT    \    ${testDataFields}    \    Expect Error Containing:CURRENCY
+    Validate T24 Record    ACCOUNT    \    ${testDataFields}    \    Expect Error for Field:CURRENCY
