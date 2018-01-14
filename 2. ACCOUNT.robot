@@ -57,3 +57,23 @@ ACCOUNT CLOSURE
     Create Or Amend T24 Record    ACCOUNT.CLOSURE,INPUT    ${CurrentAccountClose}    ${testDataFields}    Accept All    ${EMPTY}
     @{validationRules}=    Create List    ONLINE.ACTUAL.BAL :EQ:= -5.00
     Check T24 Record    ACCOUNT    ${CurrentAccountSettle}    ${validationRules}
+
+Validate Nostro Account - External Acct No
+    T24 Login    INPUTTER
+    @{testDataFields}=    Create List    CUSTOMER=${m_ac_bank_cust}    CURRENCY=USD
+    Validate T24 Record    ACCOUNT,NOSTRO    >>AcctNostro    ${testDataFields}    Accept All    Expect Error for Field:External Acct No
+
+Validate Nostro Account - Customer ID
+    T24 Login    INPUTTER
+    @{testDataFields}=    Create List    CURRENCY=USD    OUR.EXT.ACCT.NO=?AUTO-VALUE
+    Validate T24 Record    ACCOUNT,NOSTRO    >>AcctNostro    ${testDataFields}    Accept All    Expect Error for Field:Customer ID
+
+Validate Nostro Account - Currency
+    T24 Login    INPUTTER
+    @{testDataFields}=    Create List    CUSTOMER=${m_ac_bank_cust}    OUR.EXT.ACCT.NO=?AUTO-VALUE
+    Validate T24 Record    ACCOUNT,NOSTRO    >>AcctNostro    ${testDataFields}    Accept All    Expect Error for Field:Currency
+
+Validate Nostro Account - SUCCESS
+    T24 Login    INPUTTER
+    @{testDataFields}=    Create List    CUSTOMER=${m_ac_bank_cust}    CURRENCY=USD    OUR.EXT.ACCT.NO=?AUTO-VALUE
+    Validate T24 Record    ACCOUNT,NOSTRO    >>AcctNostro    ${testDataFields}    Accept All    ${EMPTY}
